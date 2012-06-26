@@ -17,6 +17,6 @@
     </dependencies>
   </metadata>
   <files>
-    <file src="..\..\src\FubuJson\bin\release\FubuJson.Json.*" target="lib\net40" />
+    <file src="..\..\src\FubuJson\bin\release\FubuJson.*" target="lib\net40" />
   </files>
 </package>
