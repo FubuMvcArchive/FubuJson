@@ -1,8 +1,10 @@
 using FubuCore;
+using FubuCore.Binding;
 using FubuCore.Conversion;
 using FubuTestingSupport;
 using NUnit.Framework;
 using Newtonsoft.Json;
+using Rhino.Mocks;
 
 namespace FubuJson.Tests
 {
@@ -18,7 +20,7 @@ namespace FubuJson.Tests
 		public void SetUp()
 		{
 			theConverter = new ComplexTypeConverter(new ObjectConverter());
-			theSerializer = new NewtonSoftJsonSerializer(new JsonConverter[] { theConverter });
+			theSerializer = new NewtonSoftJsonSerializer(new JsonConverter[] { theConverter }, MockRepository.GenerateStub<IObjectResolver>());
 
 			theTarget = new ParentType
 			            	{

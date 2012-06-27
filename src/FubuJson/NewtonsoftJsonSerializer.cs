@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.IO;
+using FubuCore.Binding;
 using Newtonsoft.Json;
 
 namespace FubuJson
@@ -7,10 +8,12 @@ namespace FubuJson
 	public class NewtonSoftJsonSerializer : IJsonSerializer
 	{
 		private readonly IEnumerable<JsonConverter> _converters;
+		private readonly IObjectResolver _resolver;
 
-		public NewtonSoftJsonSerializer(IEnumerable<JsonConverter> converters)
+		public NewtonSoftJsonSerializer(IEnumerable<JsonConverter> converters, IObjectResolver resolver)
 		{
 			_converters = converters;
+			_resolver = resolver;
 		}
 
 		private JsonSerializer buildSerializer(TypeNameHandling naming)
@@ -38,8 +41,8 @@ namespace FubuJson
 
 		public T Deserialize<T>(string input)
 		{
-			var serializer = buildSerializer(TypeNameHandling.All);
-			return serializer.Deserialize<T>(new JsonTextReader(new StringReader(input)));
+			var values = new JObjectValues(input);
+			return (T)_resolver.BindModel(typeof(T), values).Value;
 		}
 	}
 }

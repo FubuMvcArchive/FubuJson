@@ -1,8 +1,9 @@
-﻿using System;
-using FubuCore;
-using FubuCore.Conversion;
+﻿using FubuCore.Binding;
 using FubuTestingSupport;
 using NUnit.Framework;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using Rhino.Mocks;
 
 namespace FubuJson.Tests
 {
@@ -10,38 +11,33 @@ namespace FubuJson.Tests
 	public class when_deserializing_an_object
 	{
 		private NewtonSoftJsonSerializer theSerializer;
+		private IObjectResolver theObjectResolver;
 		private string theInput;
 		private ParentType theObject;
 
 		[SetUp]
 		public void SetUp()
 		{
-			var locator = new InMemoryServiceLocator();
-			var objectConverter = new ObjectConverter(locator, new ConverterLibrary(new[] {new StatelessComplexTypeConverter()}));
-			locator.Add<IObjectConverter>(objectConverter);
-
-			var converter = new ComplexTypeConverter(objectConverter);
-
+			theObjectResolver = MockRepository.GenerateStub<IObjectResolver>();
 			theInput = "{\"Name\":\"Test\",\"Child\":\"x:123\"}";
-			theSerializer = new NewtonSoftJsonSerializer(new[] { converter });
+			theSerializer = new NewtonSoftJsonSerializer(new JsonConverter[0], theObjectResolver);
 
-			theObject = theSerializer.Deserialize<ParentType>(theInput);
+			theObject = new ParentType
+			{
+				Name = "Test",
+				Child = new ComplexType { Key = "x", Value = "123" }
+			};
+
+			theObjectResolver
+				.Stub(x => x.BindModel(typeof (ParentType), new JObjectValues(new JObject())))
+				.Constraints(Rhino.Mocks.Constraints.Is.Same(typeof(ParentType)), Rhino.Mocks.Constraints.Is.TypeOf<JObjectValues>())
+				.Return(new BindResult {Value = theObject});
 		}
 
 		[Test]
-		public void uses_the_object_converter()
+		public void uses_the_object_resolver()
 		{
-			theObject.Name.ShouldEqual("Test");
-			theObject.Child.ShouldEqual(new ComplexType {Key = "x", Value = "123"});
-		}
-	}
-
-	public class StatelessComplexTypeConverter : StatelessConverter<ComplexType>
-	{
-		protected override ComplexType convert(string text)
-		{
-			var values = text.Split(new[] { ":" }, StringSplitOptions.None);
-			return new ComplexType {Key = values[0], Value = values[1]};
+			theSerializer.Deserialize<ParentType>(theInput).ShouldEqual(theObject);
 		}
 	}
 }

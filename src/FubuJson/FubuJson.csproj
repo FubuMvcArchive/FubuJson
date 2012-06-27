@@ -50,6 +50,8 @@
     </Compile>
     <Compile Include="FubuJsonConverter.cs" />
     <Compile Include="IJsonSerializer.cs" />
+    <Compile Include="JObjectValues.cs" />
+    <Compile Include="JTokenKeyValuePairExtensions.cs" />
     <Compile Include="NewtonsoftJsonSerializer.cs" />
   </ItemGroup>
   <ItemGroup>
