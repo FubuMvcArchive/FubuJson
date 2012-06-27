@@ -24,11 +24,13 @@ namespace FubuJson
 			return jsonSerializer;
 		}
 
-		public string Serialize(object target)
+		public string Serialize(object target, bool includeMetadata = false)
 		{
+			var naming = includeMetadata ? TypeNameHandling.All : TypeNameHandling.None;
 			var stringWriter = new StringWriter();
 			var writer = new JsonTextWriter(stringWriter);
-			var serializer = buildSerializer(TypeNameHandling.None);
+
+			var serializer = buildSerializer(naming);
 			serializer.Serialize(writer, target);
 
 			return stringWriter.ToString();
