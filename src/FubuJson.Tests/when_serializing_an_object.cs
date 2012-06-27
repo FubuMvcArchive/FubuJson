@@ -32,9 +32,7 @@ namespace FubuJson.Tests
 		[Test]
 		public void uses_the_provided_converters()
 		{
-			var targetType = typeof (ParentType);
-			var type = "\"$type\":\"{0}, {1}\"".ToFormat(targetType.FullName, targetType.Assembly.GetName().Name);
-			theResult.ShouldEqual("{" + type + ",\"Name\":\"Test\",\"Child\":\"x:123\"}");
+			theResult.ShouldEqual("{\"Name\":\"Test\",\"Child\":\"x:123\"}");
 		}
 	}
 }
