@@ -4,6 +4,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FubuJson", "FubuJson\FubuJs
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FubuJson.Tests", "FubuJson.Tests\FubuJson.Tests.csproj", "{9A5A2E9D-400E-4FBB-8D39-C3D27E1B1F2D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FubuJson.Docs", "FubuJson.Docs\FubuJson.Docs.csproj", "{1DB7F9E0-6CB2-4BE6-8834-16003E8891E4}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -18,6 +20,10 @@ Global
 		{9A5A2E9D-400E-4FBB-8D39-C3D27E1B1F2D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9A5A2E9D-400E-4FBB-8D39-C3D27E1B1F2D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9A5A2E9D-400E-4FBB-8D39-C3D27E1B1F2D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1DB7F9E0-6CB2-4BE6-8834-16003E8891E4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1DB7F9E0-6CB2-4BE6-8834-16003E8891E4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1DB7F9E0-6CB2-4BE6-8834-16003E8891E4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1DB7F9E0-6CB2-4BE6-8834-16003E8891E4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

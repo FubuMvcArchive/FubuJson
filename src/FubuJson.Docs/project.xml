@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<ProjectRoot xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <TagLine>JSON.NET helpers for use with FubuCore binding</TagLine>
+  <Name>FubuJson</Name>
+  <GitHubPage>http://github.com/DarthFubuMVC/FubuJson</GitHubPage>
+  <UserGroupUrl>https://groups.google.com/forum/?fromgroups#!forum/fubumvc-devel</UserGroupUrl>
+  <BuildServerUrl>http://build.fubu-project.org/project.html?projectId=project21&amp;tab=projectOverview</BuildServerUrl>
+  <BottleName>FubuJson.Docs</BottleName>
+  <TeamCityBuildType>bt34</TeamCityBuildType>
+  <Nugets>
+    <PublishedNuget>
+      <Name>FubuJson</Name>
+      <Description>JSON.NET helpers for use with FubuCore binding.</Description>
+    </PublishedNuget>
+  </Nugets>
+  <Url>fubujson</Url>
+</ProjectRoot>
