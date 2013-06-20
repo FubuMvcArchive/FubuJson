@@ -4,21 +4,28 @@ using Newtonsoft.Json;
 
 namespace FubuJson
 {
+
+
 	public class NewtonSoftJsonSerializer : IJsonSerializer
 	{
-		private readonly IEnumerable<JsonConverter> _converters;
+	    private readonly JsonSerializerSettings _settings;
+	    private readonly IEnumerable<JsonConverter> _converters;
 
-		public NewtonSoftJsonSerializer(IEnumerable<JsonConverter> converters)
+		public NewtonSoftJsonSerializer(JsonSerializerSettings settings, IEnumerable<JsonConverter> converters)
 		{
-			_converters = converters;
+		    _settings = settings;
+		    _converters = converters;
 		}
 
-		private JsonSerializer buildSerializer(TypeNameHandling naming)
-		{
-			var jsonSerializer = new JsonSerializer
-			{
-				TypeNameHandling = naming
-			};
+	    private JsonSerializer buildSerializer(bool includeMetadata)
+	    {
+	        var jsonSerializer = JsonSerializer.Create(_settings);
+
+            if (includeMetadata)
+            {
+                jsonSerializer.TypeNameHandling = TypeNameHandling.All;
+            }
+	        
 			jsonSerializer.Converters.AddRange(_converters);
 			
 			return jsonSerializer;
@@ -26,11 +33,10 @@ namespace FubuJson
 
 		public string Serialize(object target, bool includeMetadata = false)
 		{
-			var naming = includeMetadata ? TypeNameHandling.All : TypeNameHandling.None;
 			var stringWriter = new StringWriter();
 			var writer = new JsonTextWriter(stringWriter);
 
-			var serializer = buildSerializer(naming);
+			var serializer = buildSerializer(includeMetadata);
 			serializer.Serialize(writer, target);
 
 			return stringWriter.ToString();
@@ -38,7 +44,7 @@ namespace FubuJson
 
 		public T Deserialize<T>(string input)
 		{
-			var serializer = buildSerializer(TypeNameHandling.All);
+			var serializer = buildSerializer(true);
 			return serializer.Deserialize<T>(new JsonTextReader(new StringReader(input)));
 		}
 	}

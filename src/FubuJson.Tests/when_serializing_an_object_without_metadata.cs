@@ -17,7 +17,7 @@ namespace FubuJson.Tests
 		public void SetUp()
 		{
 			theConverter = new ComplexTypeConverter(new ObjectConverter());
-			theSerializer = new NewtonSoftJsonSerializer(new JsonConverter[] { theConverter });
+			theSerializer = new NewtonSoftJsonSerializer(new JsonSerializerSettings(), new JsonConverter[] { theConverter });
 
 			theTarget = new ParentType
 			            	{
